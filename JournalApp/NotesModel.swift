@@ -14,13 +14,16 @@ protocol NotesModelProtocol {
 }
 
 class NotesModel {
-    
     var delegate: NotesModelProtocol?
+    var listenerRegistration: ListenerRegistration!
+    
+    deinit {
+        // Unregister listener
+        listenerRegistration?.remove()
+    }
     
     func getNotes() {
-        let db = Firestore.firestore()
-        
-        db.collection("notes").getDocuments { (snap, error) in
+        self.listenerRegistration = Firestore.firestore().collection("notes").addSnapshotListener({ (snap, error) in
             if error == nil && snap != nil {
                 var notes = [Note]()
 
@@ -35,6 +38,25 @@ class NotesModel {
                     self.delegate?.notesRetrieved(notes: notes)
                 }
             }
-        }
+        })
+    }
+    
+    func deleteNote(_ n: Note) {
+        Firestore.firestore().collection("notes").document(n.docId).delete()
+    }
+    
+    func saveNote(_ n: Note) {
+        Firestore.firestore().collection("notes").document(n.docId).setData(noteToDictionary(n))
+    }
+    
+    func noteToDictionary(_ n: Note) -> [String: Any] {
+        var dictionary = [String: Any]()
+        dictionary["docId"] = n.docId
+        dictionary["title"] = n.title
+        dictionary["body"] = n.body
+        dictionary["createdAt"] = n.createdAt
+        dictionary["lastUpdatedAt"] = n.lastUpdated
+        dictionary["isStarred"] = n.isStarred
+        return dictionary
     }
 }

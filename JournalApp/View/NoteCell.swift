@@ -13,8 +13,8 @@ class NoteCell: UITableViewCell {
     private let _titleLabel: UILabel = {
         let label = UILabel()
         label.text = "TitleTitleTitleTitleTitle"
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.contentHuggingPriority(for: .vertical)
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         //label.backgroundColor = .red
         return label
     }()
@@ -23,7 +23,9 @@ class NoteCell: UITableViewCell {
         let label = UILabel()
         label.text = "BodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBo"
         label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 17)
         //label.backgroundColor = .blue
+        label.setContentHuggingPriority(.defaultLow, for: .vertical)
         return label
     }()
     
@@ -41,7 +43,7 @@ class NoteCell: UITableViewCell {
         
         let noteStack = UIStackView(arrangedSubviews: [_titleLabel, _bodyLabel])
         noteStack.axis = .vertical
-        noteStack.distribution = .fillProportionally
+        noteStack.distribution = .fill
         noteStack.spacing = 0
         noteStack.translatesAutoresizingMaskIntoConstraints = false
         addSubview(noteStack)

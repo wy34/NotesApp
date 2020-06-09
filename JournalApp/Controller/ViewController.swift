@@ -34,8 +34,16 @@ class ViewController: UIViewController {
 
     // MARK: - Helper
     func anchorElements() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
         view.addSubview(mainTableView)
         mainTableView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
+    }
+    
+    // MARK: - Selector
+    @objc func addNote() {
+        let vcToGoTo = NoteViewController()
+        vcToGoTo.notesModel = self.notesModel
+        present(vcToGoTo, animated: true)
     }
 }
 
@@ -49,12 +57,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! NoteCell
         cell.titleLabel.text = notes[indexPath.row].title
-        //cell.bodyLabel.text = notes[indexPath.row].body
+        cell.bodyLabel.text = notes[indexPath.row].body
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vcToGoTo = NoteViewController()
+        vcToGoTo.note = notes[indexPath.row]
+        vcToGoTo.notesModel = self.notesModel
+        tableView.deselectRow(at: tableView.indexPathForSelectedRow!, animated: false)
         present(vcToGoTo, animated: true)
     }
 }
