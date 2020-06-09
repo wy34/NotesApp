@@ -49,6 +49,10 @@ class NotesModel {
         Firestore.firestore().collection("notes").document(n.docId).setData(noteToDictionary(n))
     }
     
+    func updateFavStatus(_ docId: String, _ isStarred: Bool) {
+        Firestore.firestore().collection("notes").document(docId).updateData(["isStarred": isStarred])
+    }
+    
     func noteToDictionary(_ n: Note) -> [String: Any] {
         var dictionary = [String: Any]()
         dictionary["docId"] = n.docId

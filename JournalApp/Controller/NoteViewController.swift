@@ -45,6 +45,14 @@ class NoteViewController: UIViewController {
         return button
     }()
     
+    private let favoriteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "star"), for: .normal)
+        button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        button.addTarget(self, action: #selector(starTapped), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,9 +62,13 @@ class NoteViewController: UIViewController {
         if note != nil {
             titleInputField.text = note?.title
             bodyInputField.text = note?.body
+            setStarButton()
+        } else {
+            let note = Note(docId: UUID().uuidString, title: titleInputField.text ?? "", body: bodyInputField.text ?? "", isStarred: false, createdAt: Date(), lastUpdated: Date())
+            self.note = note
         }
     }
-
+    
     // MARK: - Helper
     func anchorElements() {
         let inputFieldStack = UIStackView(arrangedSubviews: [titleInputField, bodyInputField])
@@ -64,7 +76,7 @@ class NoteViewController: UIViewController {
         inputFieldStack.translatesAutoresizingMaskIntoConstraints = false
         inputFieldStack.spacing = 20
         
-        let buttonStack = UIStackView(arrangedSubviews: [deleteButton, saveButton])
+        let buttonStack = UIStackView(arrangedSubviews: [deleteButton, saveButton, favoriteButton])
         buttonStack.spacing = 30
         buttonStack.distribution = .fill
         
@@ -75,6 +87,11 @@ class NoteViewController: UIViewController {
         combinedStack.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingBottom: 50, paddingRight: 20)
     }
     
+    func setStarButton() {
+        let imageName = note!.isStarred ? "star.fill" : "star"
+        favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
+    }
+    
     // MARK: - Selectors
     @objc func deleteNote() {
         guard let note = note else { return }
@@ -83,16 +100,17 @@ class NoteViewController: UIViewController {
     }
     
     @objc func saveNote() {
-        if note == nil {
-            let note = Note(docId: UUID().uuidString, title: titleInputField.text ?? "", body: bodyInputField.text ?? "", isStarred: false, createdAt: Date(), lastUpdated: Date())
-            self.note = note
-        } else {
-            note?.title = titleInputField.text ?? ""
-            note?.body = bodyInputField.text ?? ""
-            note?.lastUpdated = Date()
-        }
-
+        note?.title = titleInputField.text ?? ""
+        note?.body = bodyInputField.text ?? ""
+        note?.lastUpdated = Date()
+        
         notesModel?.saveNote(self.note!)
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func starTapped() {
+        note?.isStarred.toggle()
+        notesModel?.updateFavStatus(note!.docId, note!.isStarred)
+        setStarButton()
     }
 }
