@@ -18,6 +18,7 @@
 		3D7C17BE248F257D00D8CAEF /* NotesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C17BD248F257D00D8CAEF /* NotesModel.swift */; };
 		3D7C17C0248F25B100D8CAEF /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C17BF248F25B100D8CAEF /* NoteViewController.swift */; };
 		3D7C17C4248F267800D8CAEF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C17C3248F267800D8CAEF /* Extensions.swift */; };
+		3D7C17C7248F339800D8CAEF /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C17C6248F339800D8CAEF /* NoteCell.swift */; };
 		D3B8FE2920F0D9482EEE89F7 /* Pods_JournalApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A6BCE48DED4E865892F6220 /* Pods_JournalApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		3D7C17BD248F257D00D8CAEF /* NotesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesModel.swift; sourceTree = "<group>"; };
 		3D7C17BF248F25B100D8CAEF /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		3D7C17C3248F267800D8CAEF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		3D7C17C6248F339800D8CAEF /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		599B6E23A4A637D79E016176 /* Pods-JournalApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JournalApp.release.xcconfig"; path = "Target Support Files/Pods-JournalApp/Pods-JournalApp.release.xcconfig"; sourceTree = "<group>"; };
 		8A6BCE48DED4E865892F6220 /* Pods_JournalApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JournalApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -76,6 +78,7 @@
 				3D7C17A5248F225D00D8CAEF /* AppDelegate.swift */,
 				3D7C17A7248F225D00D8CAEF /* SceneDelegate.swift */,
 				3D7C17C2248F266A00D8CAEF /* Utils */,
+				3D7C17C5248F338200D8CAEF /* View */,
 				3D7C17C1248F265500D8CAEF /* Controller */,
 				3D7C17BB248F24EC00D8CAEF /* Note.swift */,
 				3D7C17BD248F257D00D8CAEF /* NotesModel.swift */,
@@ -103,6 +106,14 @@
 				3D7C17C3248F267800D8CAEF /* Extensions.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		3D7C17C5248F338200D8CAEF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3D7C17C6248F339800D8CAEF /* NoteCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		4A14179627A1011A5C5D079A /* Frameworks */ = {
@@ -245,6 +256,7 @@
 				3D7C17C0248F25B100D8CAEF /* NoteViewController.swift in Sources */,
 				3D7C17BE248F257D00D8CAEF /* NotesModel.swift in Sources */,
 				3D7C17C4248F267800D8CAEF /* Extensions.swift in Sources */,
+				3D7C17C7248F339800D8CAEF /* NoteCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
