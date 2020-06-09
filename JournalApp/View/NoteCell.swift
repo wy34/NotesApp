@@ -14,6 +14,7 @@ class NoteCell: UITableViewCell {
         let label = UILabel()
         label.text = "TitleTitleTitleTitleTitle"
         label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.contentHuggingPriority(for: .vertical)
         //label.backgroundColor = .red
         return label
     }()

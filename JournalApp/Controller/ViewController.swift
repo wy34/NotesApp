@@ -52,6 +52,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         //cell.bodyLabel.text = notes[indexPath.row].body
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vcToGoTo = NoteViewController()
+        present(vcToGoTo, animated: true)
+    }
 }
 
 // MARK: - NotesModelProtocol methods
