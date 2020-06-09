@@ -41,8 +41,9 @@ class ViewController: UIViewController {
         notesModel.delegate = self
         anchorElements()
         notesModel.getNotes()
+        print(showFavorites)
     }
-
+  
     // MARK: - Helper
     func anchorElements() {
         navigationItem.leftBarButtonItem = filterFavoritesButton
@@ -67,11 +68,8 @@ class ViewController: UIViewController {
     
     @objc func starClicked() {
         showFavorites.toggle()
-        
         filterFavoritesButton.image = showFavorites ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
-        
         filterFavorites()
-
         mainTableView.reloadData()
     }
 }
@@ -96,6 +94,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         vcToGoTo.notesModel = self.notesModel
         tableView.deselectRow(at: tableView.indexPathForSelectedRow!, animated: false)
         present(vcToGoTo, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            notesModel.deleteNote(notes[indexPath.row])
+            notes.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
 }
 
